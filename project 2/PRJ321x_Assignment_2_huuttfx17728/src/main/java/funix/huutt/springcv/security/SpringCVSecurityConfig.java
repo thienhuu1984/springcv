@@ -19,15 +19,14 @@ public class SpringCVSecurityConfig {
 
         // define query to retrieve a user by username
         jdbcUserDetailsManager.setUsersByUsernameQuery(
-                "select username, password,  status from user where username=?"
+                "select username as user_id, password, status from user where user.username=?  "
         );
 
         // define query to retrieve the authorities / roles by username
         jdbcUserDetailsManager.setAuthoritiesByUsernameQuery(
-                "select user.username as username, role.name as role  " +
-                        "from user join authorities on user.username = authorities.username " +
-                        "join role on role.id = authorities.role_id " +
-                        "where user.username=?"
+                "select u.username as user_id, r.name as role  " +
+                        "from user u join role r on r.id = u.role_id " +
+                        "where u.username=? "
         );
 
 
@@ -42,6 +41,7 @@ public class SpringCVSecurityConfig {
                         configurer
                                 .requestMatchers("/").permitAll()
                                 .requestMatchers("/login/**").permitAll()
+                                .requestMatchers("/perform/**").permitAll()
                                 .requestMatchers("/register/**").permitAll()
                                 .requestMatchers("/assets/**").permitAll()
                                 .requestMatchers("/fragments/**").permitAll()

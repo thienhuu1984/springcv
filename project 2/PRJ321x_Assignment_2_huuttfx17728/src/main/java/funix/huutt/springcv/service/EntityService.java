@@ -20,4 +20,10 @@ public interface EntityService {
 
     List<TopRecuitment> getTopRecuitments();
     List<TopCompany> findTopCompanies();
+
+    List<Role> findAllRoles();
+
+    Role findRole(int roleId);
+
+    User saveUser(User user);
 }

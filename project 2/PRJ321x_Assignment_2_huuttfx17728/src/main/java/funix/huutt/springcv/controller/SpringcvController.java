@@ -65,7 +65,7 @@ public class SpringcvController extends EntityController {
         List<User> companies = entityService.findAllCompany();
         List<Recruitment> recruitments = entityService.findAllRecruitment();
 
-        statistics.setTotalCandidate ((candidates == null)?0:users.size());
+        statistics.setTotalCandidate ((candidates == null)?0:candidates.size());
         statistics.setTotalCompanies((companies==null)?0:companies.size());
         statistics.setTotalRecruitments((recruitments==null)?0:recruitments.size());
 

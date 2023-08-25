@@ -283,6 +283,38 @@ public class EntityDaoImpl implements EntityDao {
         }
     }
 
+    @Override
+    public List<Role> findAllRoles() {
+
+        try {
+            TypedQuery<Role> query = entityManager.createQuery(
+                    "FROM Role r " +
+                            "WHERE r.id > :data ",
+                    Role.class
+            );
+
+            query.setParameter("data", 1);
+
+            return query.getResultList();
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    @Override
+    public Role findRole(int roleId) {
+        return entityManager.find(Role.class, roleId);
+    }
+
+    @Override
+    public User saveUser(User user) {
+
+        User dbUser = entityManager.merge(user);
+
+        return dbUser;
+    }
+
     private int findCompanyHasMaxApplyCount(List<TopCompany> topCompanies ) {
 
         if(topCompanies == null || topCompanies.size() == 0) return -1;

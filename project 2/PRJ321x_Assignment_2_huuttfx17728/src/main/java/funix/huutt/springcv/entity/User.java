@@ -18,6 +18,9 @@ import java.util.List;
 public class User {
 
     @Id
+    @Column(name = "username")
+    private String username;
+
     @Column(name="email")
     @Email(message = "Email bạn nhập thiếu '@'.")
     @NotNull(message = "Email không được bỏ trống")
@@ -36,11 +39,8 @@ public class User {
     private String address;
 
     @Column(name="phone_number")
-    @Pattern(regexp = "^[0-9]{10}", message = "Định dạng số điện thoại không đúng.")
-    @NotNull(message = "Bạn phải nhập số điện thoại")
     @IsNumber(message = "Định dạng số điện thoại phải là số")
-    @Size(min = 1, message = "Bạn phải nhập số điện thoại")
-    private String phoneNumber;
+    private String phoneNumber ;
 
     @Column(name="image")
     private String image;
@@ -119,13 +119,14 @@ public class User {
 
     public User() {
         this.status = 1;
+        this.phoneNumber = "0000000000";
         this.createDate = new Date(System.currentTimeMillis());
     }
 
     public User(String email, String fullName) {
-        this.email = email;
+        this.username = this.email = email;
         this.fullName = fullName;
-
+        this.phoneNumber = "0000000000";
         this.status = 1;
         this.createDate = new Date(System.currentTimeMillis());
     }
@@ -135,11 +136,19 @@ public class User {
         this.fullName = fullName;
         this.address = address;
         this.phoneNumber = phoneNumber;
-        this.email = email;
+        this.username = this.email = email;
         this.image = image;
         this.about = about;
         this.status = 1;
         this.createDate = new Date(System.currentTimeMillis());
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
 
@@ -223,6 +232,7 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+        this.role.add(this);
     }
 
     public List<CV> getCvs() {

@@ -1,9 +1,6 @@
 package funix.huutt.springcv.dao;
 
-import funix.huutt.springcv.entity.Category;
-import funix.huutt.springcv.entity.Company;
-import funix.huutt.springcv.entity.Recruitment;
-import funix.huutt.springcv.entity.User;
+import funix.huutt.springcv.entity.*;
 import funix.huutt.springcv.view.CategoryAnalysis;
 import funix.huutt.springcv.view.TopCompany;
 import funix.huutt.springcv.view.TopRecuitment;
@@ -30,4 +27,9 @@ public interface EntityDao {
     Recruitment findRecruitmentHasAppliesById(int recruitmentId);
 
 
+    List<Role> findAllRoles();
+
+    Role findRole(int roleId);
+
+    User saveUser(User user);
 }
